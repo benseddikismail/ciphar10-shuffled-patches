@@ -4,6 +4,10 @@
 
 ## Dataset creation and PCA analysis
 
+We wrote a script to set up a dataset for our image classification task using CIFAR-10. We randomly selected 25 images from the CIFAR-10 test dataset. These images will be the core of our dataset.Then, we decided to add some variety to our dataset using data augmentation. We created shuffled versions of each of those 25 images. We divided each image into patches of two different sizes, 16x16 and 8x8. After that, we shuffled these patches randomly and put them back together to form a new image. 
+Finally,We combined them with the original images to make our final dataset. This mix of original and shuffled images adds more diversity to our dataset..
+
+
 ## Transform and Plots
 
 ## Insights
