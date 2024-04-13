@@ -65,6 +65,9 @@ Finally,We combined them with the original images to make our final dataset. Thi
 
 5. **Overall Effect**:
     - LeNet2 builds upon LeNet1 with additional layers and adjustments, aiming to improve feature extraction, training stability, and generalization capabilities. These changes are expected to result in a more powerful and robust model for image classification tasks.
+  
+  ![LeNet2](https://media.github.iu.edu/user/24623/files/a67f2f83-edb8-4689-a4ad-adc2b49dd694)
+
 
 </details>
 
