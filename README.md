@@ -42,6 +42,9 @@ Finally,We combined them with the original images to make our final dataset. Thi
   5. **Overall Effect**:
      - LeNet1 sequentially extracts features, reduces dimensionality, and performs classification.
      - By leveraging convolutional, pooling, fully connected layers, and flattening, it effectively learns hierarchical representations and makes accurate predictions on image data.
+  
+  ![LeNet1](https://media.github.iu.edu/user/24623/files/3580a31f-8551-48fc-9197-9a2b417e9f6b)
+
 </details>
 
 <details>
@@ -200,16 +203,13 @@ Finally,We combined them with the original images to make our final dataset. Thi
 #### ResNet :
 
 It is one of the most popular and efficient models for running deep neural networks.
-
-'''
-
-'''
+But it took too long to run.
 
 #### HybridCNNViT model :
 
 CNN is a model which can be used for extracting the local features in the images.
 And ViT model is pretty good at performing image classification.
-The hybrid model is something which we thought would be pretty good for carrying out with the task.
+The hybrid model (mix of CNN and ViT) is something which we thought would be pretty good for carrying out with the task.
 Challenge : Not able to resolve compatibility issues in the architecture.
 
 
