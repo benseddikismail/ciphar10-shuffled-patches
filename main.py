@@ -296,7 +296,7 @@ class Block(nn.Module):
 
 class PatchEmbed(nn.Module):
 
-    def __init__(self, img_size=224, patch_size=16, in_chans=3, embed_dim=768):
+    def __init__(self, img_size=224, patch_size=8, in_chans=3, embed_dim=768):
         super().__init__()
         img_size = to_2tuple(img_size)
         patch_size = to_2tuple(patch_size)
@@ -358,7 +358,7 @@ class HybridEmbed(nn.Module):
 
 class VisionTransformer(nn.Module):
 
-    def __init__(self, img_size=224, patch_size=16, in_chans=3, num_classes=10, embed_dim=768, depth=12,
+    def __init__(self, img_size=224, patch_size=8, in_chans=3, num_classes=10, embed_dim=768, depth=12,
                  num_heads=12, mlp_ratio=4., qkv_bias=False, qk_scale=None, drop_rate=0., attn_drop_rate=0.,
                  drop_path_rate=0., hybrid_backbone=None, norm_layer=nn.LayerNorm):
         super().__init__()
@@ -464,7 +464,7 @@ class Net_D_shuffletruffle(nn.Module):
 # Define the model architecture for N-shuffletruffle
 class Net_N_shuffletruffle(nn.Module):
     def __init__(self, *, img_size=32, patch_size=8, num_classes=10, embed_dim=384, depth=8, num_heads=8, mlp_ratio=3):
-        super(Net_D_shuffletruffle, self).__init__()
+        super(Net_N_shuffletruffle, self).__init__()
         self.VisionTransformer = VisionTransformer(
             img_size=img_size,
             patch_size=patch_size,
@@ -518,6 +518,20 @@ def main(epochs = 100,
     trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
     trainset, valset = torch.utils.data.random_split(trainset, [40000, 10000], generator=torch.Generator().manual_seed(0))
 
+    # Normalize the data using mean and std of the training set
+    train_mean = torch.stack([data[0] for data in trainset], dim=0).mean(axis=(0, 2, 3))
+    train_std = torch.stack([data[0] for data in trainset], dim=0).std(axis=(0, 2, 3))
+
+    transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize(mean=train_mean, std=train_std)
+    ])
+
+    # Apply transformation to trainset and valset
+    trainset.dataset.transform = transform
+    valset.dataset.transform = transform
+
+
     testset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
 
     # Initialize Dataloaders
@@ -539,6 +553,8 @@ def main(epochs = 100,
 
     train_accuracy_list = []
     val_accuracy_list = []
+    train_loss_list = [] 
+    val_loss_list = []   
 
     # Train the model
     try:
@@ -561,10 +577,14 @@ def main(epochs = 100,
                 _, predicted = torch.max(outputs.data, 1)
                 correct += (predicted == labels).sum().item()
 
+            train_loss = running_loss / len(trainloader)
+            train_loss_list.append(train_loss)
+
             train_acc = 100 * correct / len(trainloader.dataset)
             train_accuracy_list.append(train_acc)
 
             val_loss, val_acc = eval_model(net, valloader, criterion, device)
+            val_loss_list.append(val_loss)
             val_accuracy_list.append(val_acc)
 
             if epoch % 10 == 0:
@@ -578,14 +598,26 @@ def main(epochs = 100,
     except KeyboardInterrupt:
         pass
 
-    # plt.plot(range(epochs), train_accuracy_list, label='Training Accuracy')
-    # plt.plot(range(epochs), val_accuracy_list, label='Validation Accuracy')  # Plot for every epoch
-    # plt.xlabel('Epochs')
-    # plt.ylabel('Accuracy')
-    # plt.title('Training and Validation Accuracy')
-    # plt.legend()
-    # plt.show()
+    plt.figure(figsize=(10, 5))
 
+    plt.plot(range(epochs), train_loss_list, label='Training Loss')
+    plt.plot(range(epochs), val_loss_list, label='Validation Loss')  # Plot Validation Loss
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.title('Training and Validation Loss')
+    plt.legend()
+    plt.show()
+
+
+    plt.figure(figsize=(10, 5))
+
+    plt.plot(range(epochs), train_accuracy_list, label='Training Accuracy')
+    plt.plot(range(epochs), val_accuracy_list, label='Validation Accuracy')  # Plot Validation Accuracy
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy')
+    plt.title('Training and Validation Accuracy')
+    plt.legend()
+    plt.show()
 
     transform = transforms.Compose([
         transforms.ToTensor()

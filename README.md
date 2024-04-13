@@ -240,6 +240,97 @@ python main.py --epochs 10 --model_class 'Plain-Old-CIFAR10' --batch_size 128 --
 - l2_regularization (float): L2 regularization strength (default: 0.0). -->
 
 
+## CIFAR10 Model
+
+### Initial Attempts
+
+In our initial approach to classifying CIFAR-10 images, we employed a sequential Convolutional Neural Network (CNN) architecture. Specifically, the first convolutional layer was configured with 3 input channels and 16 output channels, followed by subsequent layers with 16 and 32 channels, and then 32 and 64 channels, respectively. Channels in a CNN represent the matrices utilized in the dot product operation during feature selection, crucial for identifying patterns in the input data.
+Furthermore, Maxpooling layers were used for downsampling the input representation by selecting the maximum value within defined window sizes along each dimension along the features axis. Additionally, a dropout layer with a dropout rate of 50% was incorporated into the model to mitigate overfitting tendencies commonly observed in deep learning models.
+Despite these enhancements, our initial model achieved an accuracy of 68.93%. To further improve accuracy, additional optimization of hyperparameters such as learning rate adjustment and fine-tuning of model parameters would be necessary. This iterative process of parameter tuning and experimentation is essential for achieving higher classification accuracy and better model performance on the CIFAR-10 dataset.  
+
+<figure>
+  <img
+  src=""
+  alt="Initial CIFAR10 Model: Training/Validation Loss vs Epochs">
+  <figcaption><strong>Initial CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
+</figure>
+
+<figure>
+  <img
+  src=""
+  alt="Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs">
+  <figcaption><strong>Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
+</figure>
+
+
+In our pursuit of classifying CIFAR-10 images, we conducted extensive experiments employing various state-of-the-art models, including VGG, ResNet, DLA, and Vision Transformer (ViT). While these models have demonstrated high accuracy in classifying CIFAR-10 images in previous studies, our experiments revealed that achieving desired accuracies necessitated extensive training durations and significant computational resources. For instance, training these models to reach optimal accuracies required running for over 100 epochs with low learning rates and small batch sizes, resulting in prolonged training times even when using IU GPU machines or cloud computing platforms like Colab. Due to the complexity of these models and resource constraints, we could only afford to train them for a maximum of 20 epochs. Despite these limitations, our experiments yielded promising results, with the VGG model achieving the highest accuracy of 76%, as detailed in the experiments section below.
+
+### Best Performing Model for CIFAR10
+
+The best performing model we have developed for classifying CIFAR-10 images emerged as an evolution of our initial CNN attempt, tailored to accommodate our computational constraints while delivering robust performance. This model features an expanded architecture with additional convolutional blocks characterized by a kernel size of 3 and modified channel sizes. The model architecture comprises a series of convolutional and pooling layers followed by fully connected layers for classification. Specifically, the convolutional layers are organized into a sequential structure, incorporating batch normalization and ReLU activation functions for enhanced training stability and non-linearity. Dropout layers are strategically inserted to mitigate overfitting during training.
+
+The model architecture can be summarized as follows:
+```
+Net(
+  (cnn): CNN(
+    (conv_layer): Sequential(
+      (0): Conv2d(3, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): BatchNorm2d(32)
+      (2): ReLU(inplace=True)
+      (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (4): ReLU(inplace=True)
+      (5): MaxPool2d(kernel_size=2, stride=2)
+      (6): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (7): BatchNorm2d(128)
+      (8): ReLU(inplace=True)
+      (9): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (10): ReLU(inplace=True)
+      (11): MaxPool2d(kernel_size=2, stride=2)
+      (12): Dropout2d(p=0.05)
+      (13): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (14): BatchNorm2d(256)
+      (15): ReLU(inplace=True)
+      (16): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (17): ReLU(inplace=True)
+      (18): MaxPool2d(kernel_size=2, stride=2)
+    )
+    (fc_layer): Sequential(
+      (0): Dropout(p=0.1)
+      (1): Linear(in_features=4096, out_features=1024, bias=True)
+      (2): ReLU(inplace=True)
+      (3): Linear(in_features=1024, out_features=512, bias=True)
+      (4): ReLU(inplace=True)
+      (5): Dropout(p=0.1)
+      (6): Linear(in_features=512, out_features=10, bias=True)
+    )
+  )
+)
+```
+This model was trained with a batch size of 64, a learning rate of 0.001, and L2 regularization of 0.001. Remarkably, after training for just 30 epochs, the model exhibited outstanding performance, achieving an impressive test accuracy of **82.5%**.
+
+<figure>
+  <img
+  src=""
+  alt="Best CIFAR10 Model: Training/Validation Loss vs Epochs">
+  <figcaption><strong>Best CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
+</figure>
+
+
+<figure>
+  <img
+  src=""
+  alt="Best CIFAR10 Model: Training/Validation Accuracy vs Epochs">
+  <figcaption><strong>Best CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
+</figure>
+
+The following table summarizes the results of the 3 most notable tested on ciphar10: 
+
+| Model Name | Test Accuracy | Test Loss | Test Accuracy 16x16| Test Loss 16x16|Test Accuracy 8x8| Test Loss 8x8|
+|------------|---------------|-----------|---------------------|-----------------|------------------|-----------------|
+| Enhanced CNN    | 82.50         | 0.539     | 17.67 | 3.165 | 16.66 | 3.038 |
+| Vgg      | 76.17       | 1.643 |24.81 | 5.1   | 35.72  | 3.01 |
+| Initial CNN  | 68.93        | 0.896   | 18.33 | 2.759 | 15.51 | 2.911 |
+
 ## D-shuffletruffle Model
 
 The experiments on the 16 x 16 CIFAR-10 images were conducted using the following hyperparameters with the provided command:
@@ -256,7 +347,12 @@ Despite its success on regular CIFAR10 images, the model's performance significa
 The model is a convolutional neural network composed of several convolutional and fully connected layers. However, its architecture is tailored for processing structured image data. Shuffling the patches disrupts the spatial relationships between pixels, which are crucial for the model to learn meaningful representations. Consequently, the model struggles to generalize from shuffled images, leading to decreased performance compared to regular CIFAR10 images.
 To address this performance gap, alternative architectures or training strategies better suited to handle spatially invariant features could be explored. Additionally, data augmentation techniques tailored to preserve spatial relationships in shuffled images may also help mitigate the performance difference between regular and shuffled CIFAR10 images.
 
-![Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/plain.png "Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs")
+<figure>
+  <img
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/plain.png"
+  alt="Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs">
+  <figcaption><strong>Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs</strong></figcaption>
+</figure>
 
 ### D-shuffletruffle Model
 #### First Attempt: Self-Attention
@@ -264,7 +360,13 @@ The journey to find an optimal model for D_shuffle_truffle spanned various archi
 To address this challenge, a novel architecture was considered, integrating self-attention alongside convolutional layers. The inclusion of self-attention enables the model to capture long-range dependencies and effectively learn to reorder the shuffled patches. After the convolutional and pooling layers, the feature maps are reshaped into a sequence of feature vectors, with each vector representing a spatial location in the feature maps. These reshaped feature maps are then passed through the nn.MultiheadAttention module, facilitating the computation of self-attention for each feature vector based on its similarity with all other feature vectors in the sequence.
 However, while this innovative approach showed promise on regular CIFAR10 images, yielding an average accuracy of 70%, its performance on shuffled images remained subpar, averaging around 40%. This discrepancy suggests that while the model can learn to reorder shuffled patches to some extent, it still struggles to generalize effectively in the face of such variability. The underlying challenge lies in the complexity of learning meaningful representations from images with shuffled patches, which require the model to discern and adapt to spatial relationships in a highly dynamic and unpredictable manner. Further research and refinement of architectural designs may be necessary to bridge this performance gap effectively.
 
-![Self-Attention: Training and Validation Accuracies vs Epochs](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/self-attention.png "Self-Attention: Training and Validation Accuracies vs Epochs")
+
+<figure>
+  <img
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/self-attention.png"
+  alt="Self-Attention: Training and Validation Accuracies vs Epochs">
+  <figcaption><strong>Self-Attention: Training and Validation Accuracies vs Epochs</strong></figcaption>
+</figure>
 
 #### The Right Model: PEViT
 
@@ -273,10 +375,57 @@ In PEViT, the input image is decomposed into a sequence of flattened 2D patches,
 To preserve the permutation-invariant property while introducing positional information, PEViT adopts a reference-based positional embedding approach. This involves mapping each vectorized image patch to the model dimension and applying reference-based positional encoding, which relies on a learnable reference embedding. By incorporating this positional encoding scheme, PEViT ensures that the order of input vectors remains covariant with the permutation, enabling it to learn effectively from shuffled images while maintaining permutation invariance.
 The architecture of PEViT with reference-based positional encoding demonstrates the feasibility of introducing positional embedding without sacrificing permutation invariance. This groundbreaking approach allows PEViT to achieve remarkable performance parity between regular CIFAR10 images and images with shuffled patches, marking a significant advancement in the field of image recognition and encryption.
 
-![PEViT Architecture](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit.png "PEViT Architecture")
+PEViT's architecture can be summarized as follows:
+```
+(VisionTransformer): VisionTransformer(
+   (patch_embed): PatchEmbed(
+   (proj): Conv2d(3, 384, kernel_size=(8, 8), stride=(8, 8))
+   )
+   (pos_drop): Dropout(p=0.0, inplace=False)
+   (blocks): ModuleList(
+   (0-7): 8 x Block(
+      (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+      (attn): Attention(
+         (qkv): Linear(in_features=384, out_features=1152, bias=False)
+         (attn_drop): Dropout(p=0.0, inplace=False)
+         (proj): Linear(in_features=384, out_features=384, bias=True)
+         (proj_drop): Dropout(p=0.0, inplace=False)
+      )
+      (drop_path): Identity()
+      (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+      (mlp): Mlp(
+         (fc1): Linear(in_features=384, out_features=1152, bias=True)
+         (act): GELU(approximate='none')
+         (fc2): Linear(in_features=1152, out_features=384, bias=True)
+         (drop): Dropout(p=0.0, inplace=False)
+      )
+   )
+   )
+   (norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+   (head): Linear(in_features=384, out_features=10, bias=True)
+   (ref_encoding): Sequential(
+   (0): Linear(in_features=384, out_features=384, bias=True)
+   (1): ReLU()
+   (2): Linear(in_features=384, out_features=384, bias=True)
+   (3): Sigmoid()
+   )
+)
+```
+
+<figure>
+  <img
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit.png"
+  alt="PEViT Architecture">
+  <figcaption><strong>PEViT Architecture</strong></figcaption>
+</figure>
 
 
-![PEViT: Training and Validation Accuracies vs Epochs](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit%20acc.png "PEViT: Training and Validation Accuracies vs Epochs")
+<figure>
+  <img
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit%20acc.png"
+  alt="PEViT: Training and Validation Accuracies vs Epochs">
+  <figcaption><strong>PEViT: Training and Validation Accuracies vs Epochs</strong></figcaption>
+</figure>
 
 ### Performance Summary
 
@@ -287,9 +436,11 @@ The table below summarizes the average performance of the three most notable mod
 |------------|---------------|-----------|---------------------|-----------------|------------------|-----------------|
 | PEViT    | 49.50         | 1.520     | 49.50 | 1.520 | 29.25 | 2.163 |
 | Self-Attention with Convolution Layers    | 70.5          | 0.900     | 40.8 | 2.084 | 27.66 | 3.145 |
-| Plain Ciphar10 Model with Convolution Layers   | 81.5         | 0.705   | 38.99 | 1.993 | 26.96 | 2.743 |
+| Plain Ciphar10 Model with Convolution Layers   | 82.50         | 0.539     | 17.67 | 3.165 | 16.66 | 3.038 |
 
 ### Challenges and Future Work
 One of the most significant challenges encountered throughout this project was compute resources. Training the models required a substantial amount of time and computational power, often posing limitations on the depth of experimentation. Due to these constraints, most models were only trained for 10 epochs, with hyperparameters optimized for speed rather than accuracy. This suggests that the models likely have untapped potential in accurately classifying CIFAR-10 images, given more extensive training.
 Notably, PEViT stands out as a model with the potential for significantly higher accuracy, potentially surpassing the 55% mark achieved in limited training runs. However, due to the compute limitations, it was not possible to fully explore its capabilities. Since Vision Transformer (ViT) models typically benefit from extensive training data and epochs, future work could focus on training PEViT for a more extended period, possibly up to 200 epochs.
 Moreover, future investigations could involve optimizing hyperparameters similar to those used in the paper for the Data-Efficient Image Transformer (DeiT). Parameters such as a smaller batch size of 32 and a lower learning rate of 0.00005 may be crucial for achieving optimal performance in training PEViT on CIFAR-10 images with shuffled patches. By addressing these challenges and refining the training process, we can further explore the capabilities and invariance of PEViT on shuffled images, potentially uncovering its true potential in image classification tasks.
+
+## D-shuffletruffle Model
