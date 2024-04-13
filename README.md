@@ -1,5 +1,15 @@
 # Report
 
+### Techniques Implemented
+#### Normalization
+Normalization is a preprocessing technique used to standardize input data, ensuring that it has a mean of zero and a standard deviation of one. In the context of image data, normalization is commonly applied to each pixel's intensity values to bring them into a common scale. This helps in improving the convergence speed during training and stabilizing the learning process.
+
+#### Early Stopping
+Early stopping is a regularization technique used during the training of machine learning models to prevent overfitting. It works by monitoring the model's performance on a validation set during training. If the performance stops improving or starts deteriorating for a specified number of consecutive epochs (known as the patience parameter), training is stopped early to prevent overfitting to the training data.
+
+#### Learning Rate Scheduler
+A learning rate scheduler is used to adjust the learning rate during training dynamically. The learning rate determines the step size at each iteration during gradient descent optimization. A scheduler allows the learning rate to be decreased gradually during training, typically when the validation loss plateaus or stops improving. This can help improve convergence and prevent the model from getting stuck in local minima.
+
 ## Comparison of Test Accuracy and Loss (3 best models)
 
 ## Dataset creation and PCA analysis
