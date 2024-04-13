@@ -320,7 +320,7 @@ This model was trained with a batch size of 64, a learning rate of 0.001, and L2
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/ciphar10-accuracy.png"
   alt="Best CIFAR10 Model: Training/Validation Accuracy vs Epochs">
-</figure>. 
+</figure>
 
 The following table summarizes the results of the 3 most notable tested on ciphar10: 
 
@@ -351,7 +351,7 @@ To address this performance gap, alternative architectures or training strategie
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/plain.png"
   alt="Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs">
-</figure>. 
+</figure>
 
 ### D-shuffletruffle Model
 #### First Attempt: Self-Attention
@@ -365,7 +365,7 @@ However, while this innovative approach showed promise on regular CIFAR10 images
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/self-attention.png"
   alt="Self-Attention: Training and Validation Accuracies vs Epochs">
-</figure>. 
+</figure>
 
 #### The Right Model: PEViT
 
