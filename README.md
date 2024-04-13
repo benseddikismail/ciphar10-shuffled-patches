@@ -224,7 +224,7 @@ Challenge : Not able to resolve compatibility issues in the architecture.
 
 
 
-### Description
+<!--### Description
 The python script main.py trains a model on CIFAR10 dataset using PyTorch. It allows you to specify the number of epochs, model_class, batch size, learning rate, and L2 regularization strength.
 
 ### Example Command
@@ -256,7 +256,7 @@ Despite its success on regular CIFAR10 images, the model's performance significa
 The model is a convolutional neural network composed of several convolutional and fully connected layers. However, its architecture is tailored for processing structured image data. Shuffling the patches disrupts the spatial relationships between pixels, which are crucial for the model to learn meaningful representations. Consequently, the model struggles to generalize from shuffled images, leading to decreased performance compared to regular CIFAR10 images.
 To address this performance gap, alternative architectures or training strategies better suited to handle spatially invariant features could be explored. Additionally, data augmentation techniques tailored to preserve spatial relationships in shuffled images may also help mitigate the performance difference between regular and shuffled CIFAR10 images.
 
-![Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs](image_url)
+![Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs]([image_url](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/plain.png))
 
 ### D-shuffletruffle Model
 #### First Attempt: Self-Attention
@@ -264,7 +264,7 @@ The journey to find an optimal model for D_shuffle_truffle spanned various archi
 To address this challenge, a novel architecture was considered, integrating self-attention alongside convolutional layers. The inclusion of self-attention enables the model to capture long-range dependencies and effectively learn to reorder the shuffled patches. After the convolutional and pooling layers, the feature maps are reshaped into a sequence of feature vectors, with each vector representing a spatial location in the feature maps. These reshaped feature maps are then passed through the nn.MultiheadAttention module, facilitating the computation of self-attention for each feature vector based on its similarity with all other feature vectors in the sequence.
 However, while this innovative approach showed promise on regular CIFAR10 images, yielding an average accuracy of 70%, its performance on shuffled images remained subpar, averaging around 40%. This discrepancy suggests that while the model can learn to reorder shuffled patches to some extent, it still struggles to generalize effectively in the face of such variability. The underlying challenge lies in the complexity of learning meaningful representations from images with shuffled patches, which require the model to discern and adapt to spatial relationships in a highly dynamic and unpredictable manner. Further research and refinement of architectural designs may be necessary to bridge this performance gap effectively.
 
-![Self-Attention: Training and Validation Accuracies vs Epochs](image_url)
+![Self-Attention: Training and Validation Accuracies vs Epochs](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/self-attention.png)
 
 #### The Right Model: PEViT
 
@@ -273,10 +273,10 @@ In PEViT, the input image is decomposed into a sequence of flattened 2D patches,
 To preserve the permutation-invariant property while introducing positional information, PEViT adopts a reference-based positional embedding approach. This involves mapping each vectorized image patch to the model dimension and applying reference-based positional encoding, which relies on a learnable reference embedding. By incorporating this positional encoding scheme, PEViT ensures that the order of input vectors remains covariant with the permutation, enabling it to learn effectively from shuffled images while maintaining permutation invariance.
 The architecture of PEViT with reference-based positional encoding demonstrates the feasibility of introducing positional embedding without sacrificing permutation invariance. This groundbreaking approach allows PEViT to achieve remarkable performance parity between regular CIFAR10 images and images with shuffled patches, marking a significant advancement in the field of image recognition and encryption.
 
-![PEViT Architecture](image_url)
+![PEViT Architecture](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit.png)
 
 
-![PEViT: Training and Validation Accuracies vs Epochs](image_url)
+![PEViT: Training and Validation Accuracies vs Epochs]([image_url](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit%20acc.png))
 
 ### Performance Summary
 
