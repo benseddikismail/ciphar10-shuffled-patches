@@ -10,6 +10,116 @@
 
 ## Experiments
 
+### Approach
+
+<details>
+<summary>LeNet1 Architecture Overview</summary> 
+  
+  ### Thought process behind choosing this model:
+   - **Historical Significance**: Pioneering CNN for basic image classification tasks like MNIST.
+   - **Simplicity and Efficiency**: Simple architecture suitable for low-resolution images and limited resources.
+  
+  1. **Convolutional Layers (conv1 and conv2)**:
+     - **Purpose**: Extract hierarchical features like edges and textures from input images.
+     - **Effect**: Learnable filters convolve with input images, capturing local patterns and enhancing feature representation.
+
+  2. **Pooling Layers (not explicitly mentioned)**:
+     - **Purpose**: Reduce spatial dimensions and extract dominant features.
+     - **Effect**: Downsample feature maps, preserving essential information while reducing computational complexity and preventing overfitting.
+
+  3. **Fully Connected Layers (fc1, fc2, and fc3)**:
+     - **Purpose**: Perform classification based on learned features.
+     - **Effect**: Neurons in these layers learn to associate features with specific classes, facilitating accurate classification.
+
+  4. **Flatten Layer**:
+     - **Purpose**: Reshape feature maps for input to fully connected layers.
+     - **Effect**: Converts multi-dimensional feature maps into a flat vector, maintaining spatial relationships and enabling further processing.
+
+  5. **Overall Effect**:
+     - LeNet1 sequentially extracts features, reduces dimensionality, and performs classification.
+     - By leveraging convolutional, pooling, fully connected layers, and flattening, it effectively learns hierarchical representations and makes accurate predictions on image data.
+</details>
+
+<details>
+  <summary>LeNet2 Architecture Overview</summary>
+  
+  ### Thought process behind choosing this model:
+   - **Enhanced Performance**: Adds more layers and batch normalization for improved accuracy.
+   - **Balanced Complexity**: Strikes a balance between complexity and efficiency.
+  
+  1. **Convolutional Layers**:
+      - LeNet2 has increased the number of output channels in its convolutional layers compared to LeNet1, allowing for more diverse feature extraction.
+
+2. **Batch Normalization**:
+    - LeNet2 incorporates batch normalization layers after each convolutional layer to stabilize and accelerate training.
+
+3. **Fully Connected Layers**:
+    - LeNet2 adjusts the input size to its first fully connected layer based on the output size of preceding layers, potentially enhancing feature processing capabilities.
+
+4. **Dropout Regularization**:
+    - LeNet2 introduces a dropout layer with a dropout rate of 0.5 after the fully connected layers to prevent overfitting and improve model generalization.
+
+5. **Overall Effect**:
+    - LeNet2 builds upon LeNet1 with additional layers and adjustments, aiming to improve feature extraction, training stability, and generalization capabilities. These changes are expected to result in a more powerful and robust model for image classification tasks.
+
+</details>
+
+<details>
+  <summary>LeNet3 Architecture Overview</summary>
+  
+### Thought process behind choosing this model:
+   - **Architectural Refinement**: Introduces adaptive pooling for diverse image characteristics.
+   - **Hierarchical Feature Extraction**: Designed to capture hierarchical features effectively.
+  
+1. **Convolutional Layers**:
+   - LeNet3 introduces an additional convolutional layer compared to LeNet2, resulting in a deeper network architecture.
+
+2. **Batch Normalization**:
+   - Similar to LeNet2, LeNet3 incorporates batch normalization layers after each convolutional layer to stabilize and accelerate training.
+
+3. **Pooling Layer**:
+   - LeNet3 utilizes adaptive average pooling instead of traditional pooling layers, enabling the network to handle input images of variable sizes and aspect ratios.
+
+4. **Fully Connected Layers**:
+   - LeNet3 maintains a similar configuration of fully connected layers as LeNet2, with adjustments in input and output sizes to accommodate the changes in the convolutional layers.
+
+5. **Overall Effect**:
+   - LeNet3 further extends the architecture of LeNet2 by adding more convolutional layers and adaptive pooling, potentially improving its ability to capture hierarchical features and generalize to diverse image datasets.
+
+  </details>
+
+<details>
+  <summary>LeNet4 Architecture Overview</summary>
+  
+### Thought process behind choosing this model:
+   - **Increased Capacity**: Adds more layers to handle highly complex datasets.
+   - **Balancing Complexity**: Explores advanced architectures while maintaining efficiency.
+  
+1. **Additional Convolutional Layers**:
+   - Additional convolutional layers (conv3 and conv4) with increased output channels capture more complex features.
+   
+2. **Batch Normalization**:
+   - Batch normalization is applied after each convolutional layer (bn3 and bn4) to stabilize and accelerate the training process.
+   
+3. **Additional Fully Connected Layer**:
+   - An extra fully connected layer (fc3) is added to enhance the model's capacity.
+   
+4. **Dropout Regularization**:
+   - Dropout is applied after each fully connected layer (fc1, fc2, and fc3) to prevent overfitting and improve generalization.
+   
+5. **Padding in Convolutional Layers**:
+   - Padding is introduced to convolutional layers to maintain spatial dimensions after convolution.
+
+## Speculation about Suboptimal Performance
+
+- The deeper architecture and increased number of parameters in LeNet4 might have led to overfitting, resulting in worse performance compared to LeNet3.
+  
+- The added layers in LeNet4 could have increased computational complexity, leading to longer training times and potentially slower convergence.
+
+- Hyperparameter tuning might not have been optimized for LeNet4, causing suboptimal performance compared to LeNet3.
+</details>
+
+
 There are many image classification models out there, but we experimented using the following models :
 
 | Model Name | Test Accuracy | Test Loss | Test Accuracy 16x16| Test Loss 16x16|Test Accuracy 8x8| Test Loss 8x8|
