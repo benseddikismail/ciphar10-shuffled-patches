@@ -290,3 +290,193 @@ class SimpleCNN(nn.Module):
         x = self.fc3(x)
         
         return x
+
+class SimpleCNN(nn.Module):
+    def __init__(self):
+        super(SimpleCNN, self).__init__()
+        # First Convolutional Layer
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3, stride=1, padding=1)
+        self.relu1 = nn.ReLU()
+        self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
+
+        # Second Convolutional Layer
+        self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, stride=1, padding=1)
+        self.relu2 = nn.ReLU()
+        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
+
+        # Fully Connected Layers
+        self.fc1 = nn.Linear(32 * 8 * 8, 128)  # Assuming input image size is 32x32
+        self.relu3 = nn.ReLU()
+        self.fc2 = nn.Linear(128, 64)
+        self.relu4 = nn.ReLU()
+        self.fc3 = nn.Linear(64, 10)  # Output size is 10 for classification
+
+    def forward(self, x):
+        # Convolutional layers
+        x = self.conv1(x)
+        x = self.relu1(x)
+        x = self.pool1(x)
+
+        x = self.conv2(x)
+        x = self.relu2(x)
+        x = self.pool2(x)
+
+        # Flatten the output for fully connected layers
+        x = x.view(-1, 32 * 8 * 8)
+
+        # Fully connected layers
+        x = self.fc1(x)
+        x = self.relu3(x)
+        x = self.fc2(x)
+        x = self.relu4(x)
+        x = self.fc3(x)
+        return x
+
+
+class DeiT_B(nn.Module):
+    def __init__(self, num_classes=1000, image_size=224, patch_size=16, num_layers=12, embed_dim=768,
+                 num_heads=12, mlp_ratio=4.0, drop_rate=0.0, drop_path_rate=0.1, norm_layer=None):
+        super(DeiT_B, self).__init__()
+
+        # Patch embedding layer
+        self.patch_embedding = nn.Conv2d(3, embed_dim, kernel_size=patch_size, stride=patch_size, bias=False)
+        num_patches = (image_size // patch_size) ** 2
+        self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
+        self.pos_embedding = nn.Parameter(torch.zeros(1, num_patches + 1, embed_dim))
+
+        # Transformer Encoder
+        self.transformer_encoder = nn.TransformerEncoder(
+            nn.TransformerEncoderLayer(
+                d_model=embed_dim, nhead=num_heads, dim_feedforward=int(embed_dim * mlp_ratio),
+                dropout=drop_rate, activation='gelu'),
+            num_layers=num_layers)
+
+        # Classification head
+        self.norm = norm_layer(embed_dim) if norm_layer else nn.LayerNorm(embed_dim)
+        self.fc = nn.Linear(embed_dim, num_classes)
+
+        # Dropout
+        self.dropout = nn.Dropout(p=drop_rate)
+
+        # Initialization
+        self._init_weights()
+
+    def _init_weights(self):
+        nn.init.normal_(self.cls_token, std=0.02)
+        nn.init.normal_(self.pos_embedding, std=0.02)
+
+    def forward(self, x):
+        B = x.shape[0]
+
+        # Patch embedding
+        x = self.patch_embedding(x)  # [B, embed_dim, H', W']
+        H, W = x.size(2), x.size(3)
+        x = x.flatten(2).transpose(1, 2)  # [B, num_patches, embed_dim]
+
+        # Positional embedding
+        cls_tokens = self.cls_token.expand(B, -1, -1)  # [B, 1, embed_dim]
+        x = torch.cat((cls_tokens, x), dim=1)  # [B, num_patches + 1, embed_dim]
+        x = x + self.pos_embedding[:, :(H * W + 1)]  # [B, num_patches + 1, embed_dim]
+
+        # Transformer Encoder
+        x = self.dropout(x)
+        x = self.transformer_encoder(x)  # [B, num_patches + 1, embed_dim]
+
+        # Classification head
+        x = self.norm(x[:, 0])  # [B, embed_dim]
+        x = self.fc(x)  # [B, num_classes]
+
+        return x
+
+class VGG(nn.Module):
+    def __init__(self):
+        super(VGG, self).__init__()
+        self.features = nn.Sequential(
+            nn.Conv2d(3, 64, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(64, 64, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Conv2d(64, 128, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(128, 128, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Conv2d(128, 256, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(256, 256, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(256, 256, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Conv2d(256, 512, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
+        self.classifier = nn.Sequential(
+            nn.Linear(512 * 7 * 7, 4096),
+            nn.ReLU(True),
+            nn.Dropout(),
+            nn.Linear(4096, 4096),
+            nn.ReLU(True),
+            nn.Dropout(),
+            nn.Linear(4096, 10)  # 10 classes for CIFAR10
+        )
+
+    def forward(self, x):
+        x = self.features(x)
+        x = self.avgpool(x)
+        x = x.view(x.size(0), -1)
+        x = self.classifier(x)
+        return x
+
+
+class VisionTransformer(nn.Module):
+    def __init__(self, num_classes=10, image_size=32, patch_size=4, num_channels=3, dim=128, depth=6, heads=8, mlp_dim=512):
+        super(VisionTransformer, self).__init__()
+        num_patches = (image_size // patch_size) ** 2
+        patch_dim = num_channels * patch_size ** 2
+
+        # Patch Embedding Layer
+        self.patch_embedding = nn.Conv2d(num_channels, dim, kernel_size=patch_size, stride=patch_size)
+        # Positional Embeddings
+        self.positional_embedding = nn.Parameter(torch.randn(1, num_patches + 1, dim))
+
+        # Transformer Encoder Layers
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=dim,
+            nhead=heads,
+            dim_feedforward=mlp_dim
+        )
+        self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=depth)
+
+        # Fully Connected Layer for Classification
+        self.fc = nn.Linear(dim, num_classes)
+
+    def forward(self, x):
+        # Patch Embedding
+        x = self.patch_embedding(x)
+        # Reshape to (batch_size, num_patches, dim)
+        b, c, h, w = x.size()
+        x = x.view(b, c, -1).permute(0, 2, 1)  # Reshape and permute dimensions
+        # Add Positional Embeddings
+        x = x + self.positional_embedding[:, :x.size(1), :]
+        # Transformer Encoder
+        x = self.transformer_encoder(x)
+        # Global Average Pooling
+        x = x.mean(dim=1)
+        # Classification
+        x = self.fc(x)
+        return x

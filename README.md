@@ -1,5 +1,15 @@
 # B657 Assignment 2: Image transformations and deep learning
 
+### Techniques Implemented
+#### Normalization
+Normalization is a preprocessing technique used to standardize input data, ensuring that it has a mean of zero and a standard deviation of one. In the context of image data, normalization is commonly applied to each pixel's intensity values to bring them into a common scale. This helps in improving the convergence speed during training and stabilizing the learning process.
+
+#### Early Stopping
+Early stopping is a regularization technique used during the training of machine learning models to prevent overfitting. It works by monitoring the model's performance on a validation set during training. If the performance stops improving or starts deteriorating for a specified number of consecutive epochs (known as the patience parameter), training is stopped early to prevent overfitting to the training data.
+
+#### Learning Rate Scheduler
+A learning rate scheduler is used to adjust the learning rate during training dynamically. The learning rate determines the step size at each iteration during gradient descent optimization. A scheduler allows the learning rate to be decreased gradually during training, typically when the validation loss plateaus or stops improving. This can help improve convergence and prevent the model from getting stuck in local minima.
+
 ## Comparison of Test Accuracy and Loss (3 best models)
 
 ## Dataset creation and PCA analysis
@@ -10,7 +20,20 @@ Finally,We combined them with the original images to make our final dataset. Thi
 
 ## Transform and Plots
 
+![WhatsApp Image 2024-04-12 at 23 36 43](https://media.github.iu.edu/user/24623/files/3d5f35be-17f4-4846-b531-5fcc0434819a)
+
+Data points within each class appear to cluster together to some extent, indicating similarity among samples within the same class.
+There might be a few outliers present in the dataset, visible as data points that are distant from the main clusters.
+
+Higher variance explained by the first few components suggests that they capture most of the variability in the data
+
 ## Insights
+
+1. We noticed that both ViT and Convolutional Neural Networks (CNNs) with fully connected layersn achieved better accuracy on shuffled images. 
+
+2. This suggests proficiency in able to capturing global dependencies, likely owing to ViT's self-attention mechanism and CNNs' convolutional operations. 
+
+3. Despite spatial disruptions, they gave higher accuracy by capturing details in the shuffled image classification.
 
 ## Experiments
 
@@ -42,6 +65,9 @@ Finally,We combined them with the original images to make our final dataset. Thi
   5. **Overall Effect**:
      - LeNet1 sequentially extracts features, reduces dimensionality, and performs classification.
      - By leveraging convolutional, pooling, fully connected layers, and flattening, it effectively learns hierarchical representations and makes accurate predictions on image data.
+  
+  ![LeNet1](https://media.github.iu.edu/user/24623/files/3580a31f-8551-48fc-9197-9a2b417e9f6b)
+
 </details>
 
 <details>
@@ -184,7 +210,21 @@ Finally,We combined them with the original images to make our final dataset. Thi
 | VisionTransformer |<br>(patch_embedding): Conv2d(3, 128, kernel_size=(4, 4), stride=(4, 4))<br>(transformer_encoder): TransformerEncoder(num_layers=6, TransformerEncoderLayer(<br>&nbsp;&nbsp;&nbsp;&nbsp;(self_attn): MultiheadAttention(out_features=128, num_heads=8)<br>&nbsp;&nbsp;&nbsp;&nbsp;(linear1): Linear(in_features=128, out_features=512)<br>&nbsp;&nbsp;&nbsp;&nbsp;(linear2): Linear(in_features=512, out_features=128)<br>))<br>(fc): Linear(in_features=128, out_features=10)<br>|
 
 
-<!-- ### Description
+#### ResNet :
+
+It is one of the most popular and efficient models for running deep neural networks.
+But it took too long to run.
+
+#### HybridCNNViT model :
+
+CNN is a model which can be used for extracting the local features in the images.
+And ViT model is pretty good at performing image classification.
+The hybrid model (mix of CNN and ViT) is something which we thought would be pretty good for carrying out with the task.
+Challenge : Not able to resolve compatibility issues in the architecture.
+
+
+
+### Description
 The python script main.py trains a model on CIFAR10 dataset using PyTorch. It allows you to specify the number of epochs, model_class, batch size, learning rate, and L2 regularization strength.
 
 ### Example Command
