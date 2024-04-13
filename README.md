@@ -254,7 +254,7 @@ Despite these enhancements, our initial model achieved an accuracy of 68.93%. To
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/init-ciphar10-loss.png"
   alt="Initial CIFAR10 Model: Training/Validation Loss vs Epochs">
 </figure>
- \
+ 
 <figure>
    <figcaption><strong>Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
   <img
@@ -306,7 +306,7 @@ Net(
   )
 )
 ```
-This model was trained with a batch size of 64, a learning rate of 0.001, and L2 regularization of 0.001. Remarkably, after training for just 30 epochs, the model exhibited outstanding performance, achieving an impressive test accuracy of **82.5%**.
+This model was trained with a batch size of 64, a learning rate of 0.001, and L2 regularization of 0.001. Remarkably, after training for just 30 epochs, the model exhibited outstanding performance, achieving an impressive test accuracy of **82.5%**.  
 
 <figure>
    <figcaption><strong>Best CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
@@ -314,14 +314,14 @@ This model was trained with a batch size of 64, a learning rate of 0.001, and L2
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/ciphar10-loss.png"
   alt="Best CIFAR10 Model: Training/Validation Loss vs Epochs">
 </figure>
-\
+
 <figure>
    <figcaption><strong>Best CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/ciphar10-accuracy.png"
   alt="Best CIFAR10 Model: Training/Validation Accuracy vs Epochs">
-</figure>
-<br>
+</figure>. 
+
 The following table summarizes the results of the 3 most notable tested on ciphar10: 
 
 | Model Name | Test Accuracy | Test Loss | Test Accuracy 16x16| Test Loss 16x16|Test Accuracy 8x8| Test Loss 8x8|
@@ -344,20 +344,20 @@ python main.py --epochs 10 --model_class 'D-shuffletruffle' --batch_size 128 --l
 While the the plain CIFAR10 model can achieve accuracies of up to 85% on the regular CIFAR10 images, it exhibits poor performance on CIFAR10 images with shuffled patches.
 Despite its success on regular CIFAR10 images, the model's performance significantly drops when presented with images containing shuffled patches. The disparity in performance between regular and shuffled images indicates that the model is not indifferent to such variations in image composition.
 The model is a convolutional neural network composed of several convolutional and fully connected layers. However, its architecture is tailored for processing structured image data. Shuffling the patches disrupts the spatial relationships between pixels, which are crucial for the model to learn meaningful representations. Consequently, the model struggles to generalize from shuffled images, leading to decreased performance compared to regular CIFAR10 images.
-To address this performance gap, alternative architectures or training strategies better suited to handle spatially invariant features could be explored. Additionally, data augmentation techniques tailored to preserve spatial relationships in shuffled images may also help mitigate the performance difference between regular and shuffled CIFAR10 images.
+To address this performance gap, alternative architectures or training strategies better suited to handle spatially invariant features could be explored. Additionally, data augmentation techniques tailored to preserve spatial relationships in shuffled images may also help mitigate the performance difference between regular and shuffled CIFAR10 images.  
 
 <figure>
    <figcaption><strong>Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs</strong></figcaption>
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/plain.png"
   alt="Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs">
-</figure>
-\
+</figure>. 
+
 ### D-shuffletruffle Model
 #### First Attempt: Self-Attention
 The journey to find an optimal model for D_shuffle_truffle spanned various architectures, from VGG to DLA to ResNet (refer to the comparative table under the Experiments section), and even plain ViT. While these models demonstrated respectable performance on regular CIFAR10 images, they faced significant challenges when presented with images containing shuffled patches. This performance discrepancy underscores the models' inability to adapt to the variability introduced by shuffled patches. The spatial relationships crucial for traditional convolutional architectures to learn meaningful representations were disrupted, leading to poor performance.
 To address this challenge, a novel architecture was considered, integrating self-attention alongside convolutional layers. The inclusion of self-attention enables the model to capture long-range dependencies and effectively learn to reorder the shuffled patches. After the convolutional and pooling layers, the feature maps are reshaped into a sequence of feature vectors, with each vector representing a spatial location in the feature maps. These reshaped feature maps are then passed through the nn.MultiheadAttention module, facilitating the computation of self-attention for each feature vector based on its similarity with all other feature vectors in the sequence.
-However, while this innovative approach showed promise on regular CIFAR10 images, yielding an average accuracy of 70%, its performance on shuffled images remained subpar, averaging around 40%. This discrepancy suggests that while the model can learn to reorder shuffled patches to some extent, it still struggles to generalize effectively in the face of such variability. The underlying challenge lies in the complexity of learning meaningful representations from images with shuffled patches, which require the model to discern and adapt to spatial relationships in a highly dynamic and unpredictable manner. Further research and refinement of architectural designs may be necessary to bridge this performance gap effectively.
+However, while this innovative approach showed promise on regular CIFAR10 images, yielding an average accuracy of 70%, its performance on shuffled images remained subpar, averaging around 40%. This discrepancy suggests that while the model can learn to reorder shuffled patches to some extent, it still struggles to generalize effectively in the face of such variability. The underlying challenge lies in the complexity of learning meaningful representations from images with shuffled patches, which require the model to discern and adapt to spatial relationships in a highly dynamic and unpredictable manner. Further research and refinement of architectural designs may be necessary to bridge this performance gap effectively.  
 
 
 <figure>
@@ -365,8 +365,8 @@ However, while this innovative approach showed promise on regular CIFAR10 images
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/self-attention.png"
   alt="Self-Attention: Training and Validation Accuracies vs Epochs">
-</figure>
-\
+</figure>. 
+
 #### The Right Model: PEViT
 
 PEViT, inspired by the paper "Human-imperceptible, Machine-recognizable Images," stands out as a pioneering model capable of achieving nearly identical performance on both regular CIFAR10 images and images with shuffled patches (peaking at around 55%). The key innovation lies in its permutation-invariant design, which ensures that the model remains indifferent to the shuffling of image patches. This is achieved through a unique architecture that combines the principles of Vision Transformers (ViT) with encryption strategies and reference-based positional embeddings.
@@ -417,7 +417,7 @@ PEViT's architecture can be summarized as follows:
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit.png"
   alt="PEViT Architecture">
 </figure>
-\
+
 <figure>
   <figcaption><strong>PEViT: Training and Validation Accuracies vs Epochs</strong></figcaption>
   <img
