@@ -130,9 +130,9 @@ Finally,We combined them with the original images to make our final dataset. Thi
 - The added layers in LeNet4 could have increased computational complexity, leading to longer training times and potentially slower convergence.
 
 - Hyperparameter tuning might not have been optimized for LeNet4, causing suboptimal performance compared to LeNet3.
+  
+  ![image](https://media.github.iu.edu/user/24648/files/71639e82-fed4-444b-a62b-cab39073ef57)
 </details>
-
-![image](https://media.github.iu.edu/user/24648/files/71639e82-fed4-444b-a62b-cab39073ef57)
 
 
 <details>
