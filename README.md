@@ -250,16 +250,16 @@ Despite these enhancements, our initial model achieved an accuracy of 68.93%. To
 
 <figure>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/init-ciphar10-loss.png"
   alt="Initial CIFAR10 Model: Training/Validation Loss vs Epochs">
   <figcaption><strong>Initial CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
 </figure>
-
+  
 <figure>
+    <figcaption><strong>Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/init-ciphar10-accuracy.png"
   alt="Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs">
-  <figcaption><strong>Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
 </figure>
 
 
@@ -310,15 +310,14 @@ This model was trained with a batch size of 64, a learning rate of 0.001, and L2
 
 <figure>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/ciphar10-loss.png"
   alt="Best CIFAR10 Model: Training/Validation Loss vs Epochs">
   <figcaption><strong>Best CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
 </figure>
-
-
+  
 <figure>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/ciphar10-accuracy.png"
   alt="Best CIFAR10 Model: Training/Validation Accuracy vs Epochs">
   <figcaption><strong>Best CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
 </figure>
