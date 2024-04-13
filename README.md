@@ -249,14 +249,14 @@ Furthermore, Maxpooling layers were used for downsampling the input representati
 Despite these enhancements, our initial model achieved an accuracy of 68.93%. To further improve accuracy, additional optimization of hyperparameters such as learning rate adjustment and fine-tuning of model parameters would be necessary. This iterative process of parameter tuning and experimentation is essential for achieving higher classification accuracy and better model performance on the CIFAR-10 dataset.  
 
 <figure>
+   <figcaption><strong>Initial CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/init-ciphar10-loss.png"
   alt="Initial CIFAR10 Model: Training/Validation Loss vs Epochs">
-  <figcaption><strong>Initial CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
 </figure>
-  
+ \
 <figure>
-    <figcaption><strong>Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
+   <figcaption><strong>Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/init-ciphar10-accuracy.png"
   alt="Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs">
@@ -309,17 +309,17 @@ Net(
 This model was trained with a batch size of 64, a learning rate of 0.001, and L2 regularization of 0.001. Remarkably, after training for just 30 epochs, the model exhibited outstanding performance, achieving an impressive test accuracy of **82.5%**.
 
 <figure>
+   <figcaption><strong>Best CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/ciphar10-loss.png"
   alt="Best CIFAR10 Model: Training/Validation Loss vs Epochs">
-  <figcaption><strong>Best CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
 </figure>
-<br>
+\
 <figure>
+   <figcaption><strong>Best CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/ciphar10-accuracy.png"
   alt="Best CIFAR10 Model: Training/Validation Accuracy vs Epochs">
-  <figcaption><strong>Best CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
 </figure>
 <br>
 The following table summarizes the results of the 3 most notable tested on ciphar10: 
@@ -347,12 +347,12 @@ The model is a convolutional neural network composed of several convolutional an
 To address this performance gap, alternative architectures or training strategies better suited to handle spatially invariant features could be explored. Additionally, data augmentation techniques tailored to preserve spatial relationships in shuffled images may also help mitigate the performance difference between regular and shuffled CIFAR10 images.
 
 <figure>
+   <figcaption><strong>Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs</strong></figcaption>
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/plain.png"
   alt="Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs">
-  <figcaption><strong>Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs</strong></figcaption>
 </figure>
-<br>
+\
 ### D-shuffletruffle Model
 #### First Attempt: Self-Attention
 The journey to find an optimal model for D_shuffle_truffle spanned various architectures, from VGG to DLA to ResNet (refer to the comparative table under the Experiments section), and even plain ViT. While these models demonstrated respectable performance on regular CIFAR10 images, they faced significant challenges when presented with images containing shuffled patches. This performance discrepancy underscores the models' inability to adapt to the variability introduced by shuffled patches. The spatial relationships crucial for traditional convolutional architectures to learn meaningful representations were disrupted, leading to poor performance.
@@ -361,12 +361,12 @@ However, while this innovative approach showed promise on regular CIFAR10 images
 
 
 <figure>
+  <figcaption><strong>Self-Attention: Training and Validation Accuracies vs Epochs</strong></figcaption>
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/self-attention.png"
   alt="Self-Attention: Training and Validation Accuracies vs Epochs">
-  <figcaption><strong>Self-Attention: Training and Validation Accuracies vs Epochs</strong></figcaption>
 </figure>
-<br>
+\
 #### The Right Model: PEViT
 
 PEViT, inspired by the paper "Human-imperceptible, Machine-recognizable Images," stands out as a pioneering model capable of achieving nearly identical performance on both regular CIFAR10 images and images with shuffled patches (peaking at around 55%). The key innovation lies in its permutation-invariant design, which ensures that the model remains indifferent to the shuffling of image patches. This is achieved through a unique architecture that combines the principles of Vision Transformers (ViT) with encryption strategies and reference-based positional embeddings.
@@ -412,18 +412,17 @@ PEViT's architecture can be summarized as follows:
 ```
 
 <figure>
+  <figcaption><strong>PEViT Architecture</strong></figcaption>
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit.png"
   alt="PEViT Architecture">
-  <figcaption><strong>PEViT Architecture</strong></figcaption>
 </figure>
-<br>
-
+\
 <figure>
+  <figcaption><strong>PEViT: Training and Validation Accuracies vs Epochs</strong></figcaption>
   <img
   src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit%20acc.png"
   alt="PEViT: Training and Validation Accuracies vs Epochs">
-  <figcaption><strong>PEViT: Training and Validation Accuracies vs Epochs</strong></figcaption>
 </figure>
 
 ### Performance Summary
