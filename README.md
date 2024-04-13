@@ -29,6 +29,12 @@ Higher variance explained by the first few components suggests that they capture
 
 ## Insights
 
+1. We noticed that both ViT and Convolutional Neural Networks (CNNs) with fully connected layersn achieved better accuracy on shuffled images. 
+
+2. This suggests proficiency in able to capturing global dependencies, likely owing to ViT's self-attention mechanism and CNNs' convolutional operations. 
+
+3. Despite spatial disruptions, they gave higher accuracy by capturing details in the shuffled image classification.
+
 ## Experiments
 
 ### Approach
