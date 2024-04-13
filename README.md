@@ -20,6 +20,13 @@ Finally,We combined them with the original images to make our final dataset. Thi
 
 ## Transform and Plots
 
+![WhatsApp Image 2024-04-12 at 23 36 43](https://media.github.iu.edu/user/24623/files/3d5f35be-17f4-4846-b531-5fcc0434819a)
+
+Data points within each class appear to cluster together to some extent, indicating similarity among samples within the same class.
+There might be a few outliers present in the dataset, visible as data points that are distant from the main clusters.
+
+Higher variance explained by the first few components suggests that they capture most of the variability in the data
+
 ## Insights
 
 ## Experiments
