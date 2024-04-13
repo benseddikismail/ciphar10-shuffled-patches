@@ -256,7 +256,7 @@ Despite its success on regular CIFAR10 images, the model's performance significa
 The model is a convolutional neural network composed of several convolutional and fully connected layers. However, its architecture is tailored for processing structured image data. Shuffling the patches disrupts the spatial relationships between pixels, which are crucial for the model to learn meaningful representations. Consequently, the model struggles to generalize from shuffled images, leading to decreased performance compared to regular CIFAR10 images.
 To address this performance gap, alternative architectures or training strategies better suited to handle spatially invariant features could be explored. Additionally, data augmentation techniques tailored to preserve spatial relationships in shuffled images may also help mitigate the performance difference between regular and shuffled CIFAR10 images.
 
-![Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs]([image_url](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/plain.png))
+![Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/plain.png)
 
 ### D-shuffletruffle Model
 #### First Attempt: Self-Attention
@@ -276,7 +276,7 @@ The architecture of PEViT with reference-based positional encoding demonstrates 
 ![PEViT Architecture](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit.png)
 
 
-![PEViT: Training and Validation Accuracies vs Epochs]([image_url](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit%20acc.png))
+![PEViT: Training and Validation Accuracies vs Epochs](https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit%20acc.png)
 
 ### Performance Summary
 
