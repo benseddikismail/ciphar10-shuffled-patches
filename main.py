@@ -606,26 +606,26 @@ def main(epochs = 100,
     except KeyboardInterrupt:
         pass
 
-    plt.figure(figsize=(10, 5))
+    # plt.figure(figsize=(10, 5))
 
-    plt.plot(range(epochs), train_loss_list, label='Training Loss')
-    plt.plot(range(epochs), val_loss_list, label='Validation Loss')  # Plot Validation Loss
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss')
-    plt.title('Training and Validation Loss')
-    plt.legend()
-    plt.show()
+    # plt.plot(range(epochs), train_loss_list, label='Training Loss')
+    # plt.plot(range(epochs), val_loss_list, label='Validation Loss')  # Plot Validation Loss
+    # plt.xlabel('Epochs')
+    # plt.ylabel('Loss')
+    # plt.title('Training and Validation Loss')
+    # plt.legend()
+    # plt.show()
 
 
-    plt.figure(figsize=(10, 5))
+    # plt.figure(figsize=(10, 5))
 
-    plt.plot(range(epochs), train_accuracy_list, label='Training Accuracy')
-    plt.plot(range(epochs), val_accuracy_list, label='Validation Accuracy')  # Plot Validation Accuracy
-    plt.xlabel('Epochs')
-    plt.ylabel('Accuracy')
-    plt.title('Training and Validation Accuracy')
-    plt.legend()
-    plt.show()
+    # plt.plot(range(epochs), train_accuracy_list, label='Training Accuracy')
+    # plt.plot(range(epochs), val_accuracy_list, label='Validation Accuracy')  # Plot Validation Accuracy
+    # plt.xlabel('Epochs')
+    # plt.ylabel('Accuracy')
+    # plt.title('Training and Validation Accuracy')
+    # plt.legend()
+    # plt.show()
 
     transform = transforms.Compose([
         transforms.ToTensor()
