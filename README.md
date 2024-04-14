@@ -245,7 +245,7 @@ Below is the Principal Component Analysis (PCA) conducted on the pre-final layer
 <figure>
   <figcaption><strong>CIFAR10 Model: PCA Plot</strong></figcaption>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pca_ciphar10.png"
   alt="CIFAR10 Model: PCA Plot">
 </figure>
 
@@ -256,7 +256,7 @@ The data points appear quite scattered in the plot, which aligns with the model'
 <figure>
   <figcaption><strong>D-shuffletruffle: PCA Plot</strong></figcaption>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pca_d_shuffle.png"
   alt="D-shuffletruffle: PCA Plot">
 </figure>
 
@@ -270,7 +270,7 @@ The model's similar accuracy on images with 16x16 shuffled patches contributes t
 <figure>
   <figcaption><strong>N-shuffletruffle: PCA Plot</strong></figcaption>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pca_n_shuffle.png"
   alt="N-shuffletruffle: PCA Plot">
 </figure>
 
