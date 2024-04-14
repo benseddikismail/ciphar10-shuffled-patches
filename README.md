@@ -419,11 +419,19 @@ PEViT's architecture can be summarized as follows:
 </figure>
 
 <figure>
-  <figcaption><strong>PEViT: Training and Validation Accuracies vs Epochs</strong></figcaption>
+  <figcaption><strong>PEViT: Train/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit%20acc.png"
-  alt="PEViT: Training and Validation Accuracies vs Epochs">
+  src=""
+  alt="PEViT: Train/Validation Accuracy vs Epochs">
 </figure>
+
+<figure>
+  <figcaption><strong>PEViT: Train/Validation Loss vs Epochs</strong></figcaption>
+  <img
+  src=""
+  alt="PEViT: Train/Validation Loss vs Epochs">
+</figure>
+
 
 ### Performance Summary
 
