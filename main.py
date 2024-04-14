@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 import argparse
 import collections.abc as container_abcs
 from itertools import repeat
-
+from functools import partial
 
 class CNN(nn.Module):
 
@@ -70,8 +70,6 @@ class Net(nn.Module):
     def forward(self, x):
         return self.cnn(x) 
 
-
-    
 # class Net_D_shuffletruffle(nn.Module):
 #     def __init__(self):
 #         super(Net_D_shuffletruffle, self).__init__()
@@ -161,7 +159,7 @@ def _ntuple(n):
 to_2tuple = _ntuple(2)
 
 def _get_activation_fn(activation):
-    """Return an activation function given a string"""
+    
     if activation == "relu":
         return F.relu
     if activation == "gelu":
@@ -169,7 +167,8 @@ def _get_activation_fn(activation):
     if activation == "glu":
         return F.glu
     raise RuntimeError(F"activation should be relu/gelu, not {activation}.")
-##
+
+
 class PatchInvarientPosEncoding(nn.Module):
 
     def __init__(self, d_model, nhead, dim_feedforward=2048, dropout=0.0, activation="gelu"):
@@ -212,6 +211,7 @@ def positionalencoding2d(d_model, height, width):
         raise ValueError("Cannot use sin/cos positional encoding with "
                          "odd dimension (got dim={:d})".format(d_model))
     pe = torch.zeros(d_model, height, width)
+    # Each dimension use half of d_model
     d_model = int(d_model / 2)
     div_term = torch.exp(torch.arange(0., d_model, 2) *
                          -(math.log(10000.0) / d_model))
@@ -222,8 +222,6 @@ def positionalencoding2d(d_model, height, width):
     pe[d_model::2, :, :] = torch.sin(pos_h * div_term).transpose(0, 1).unsqueeze(2).repeat(1, 1, width)
     pe[d_model + 1::2, :, :] = torch.cos(pos_h * div_term).transpose(0, 1).unsqueeze(2).repeat(1, 1, width)
 
-    # import pdb
-    # pdb.set_trace()
     pe = pe.flatten(1).transpose(0, 1)  # hw x d_model
 
     return pe.unsqueeze(0)  # 1 x hw x d_model
@@ -253,6 +251,7 @@ class Attention(nn.Module):
         super().__init__()
         self.num_heads = num_heads
         head_dim = dim // num_heads
+
         self.scale = qk_scale or head_dim ** -0.5
 
         self.qkv = nn.Linear(dim, dim * 3, bias=qkv_bias)
@@ -263,7 +262,7 @@ class Attention(nn.Module):
     def forward(self, x):
         B, N, C = x.shape
         qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
-        q, k, v = qkv[0], qkv[1], qkv[2]
+        q, k, v = qkv[0], qkv[1], qkv[2]   # make torchscript happy (cannot use tensor as tuple)
 
         attn = (q @ k.transpose(-2, -1)) * self.scale
         attn = attn.softmax(dim=-1)
@@ -283,6 +282,7 @@ class Block(nn.Module):
         self.norm1 = norm_layer(dim)
         self.attn = Attention(
             dim, num_heads=num_heads, qkv_bias=qkv_bias, qk_scale=qk_scale, attn_drop=attn_drop, proj_drop=drop)
+
         self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
         self.norm2 = norm_layer(dim)
         mlp_hidden_dim = int(dim * mlp_ratio)
@@ -295,8 +295,9 @@ class Block(nn.Module):
 
 
 class PatchEmbed(nn.Module):
-
-    def __init__(self, img_size=224, patch_size=8, in_chans=3, embed_dim=768):
+    """ Image to Patch Embedding
+    """
+    def __init__(self, img_size=224, patch_size=16, in_chans=3, embed_dim=768):
         super().__init__()
         img_size = to_2tuple(img_size)
         patch_size = to_2tuple(patch_size)
@@ -309,6 +310,7 @@ class PatchEmbed(nn.Module):
 
     def forward(self, x):
         B, C, H, W = x.shape
+        # FIXME look at relaxing size constraints
         assert H == self.img_size[0] and W == self.img_size[1], \
             f"Input image size ({H}*{W}) doesn't match model ({self.img_size[0]}*{self.img_size[1]})."
         x = self.proj(x).flatten(2).transpose(1, 2)  # B x HW x C
@@ -328,6 +330,9 @@ class PatchEmbed(nn.Module):
 
 
 class HybridEmbed(nn.Module):
+    """
+    Extract feature map from CNN, flatten, project to embedding dim.
+    """
     def __init__(self, backbone, img_size=224, feature_size=None, in_chans=3, embed_dim=768):
         super().__init__()
         assert isinstance(backbone, nn.Module)
@@ -357,8 +362,9 @@ class HybridEmbed(nn.Module):
 
 
 class VisionTransformer(nn.Module):
-
-    def __init__(self, img_size=224, patch_size=8, in_chans=3, num_classes=10, embed_dim=768, depth=12,
+    """ Vision Transformer with support for patch or hybrid CNN input stage
+    """
+    def __init__(self, img_size=224, patch_size=16, in_chans=3, num_classes=1000, embed_dim=768, depth=12,
                  num_heads=12, mlp_ratio=4., qkv_bias=False, qk_scale=None, drop_rate=0., attn_drop_rate=0.,
                  drop_path_rate=0., hybrid_backbone=None, norm_layer=nn.LayerNorm):
         super().__init__()
@@ -371,15 +377,12 @@ class VisionTransformer(nn.Module):
         else:
             self.patch_embed = PatchEmbed(
                 img_size=img_size, patch_size=patch_size, in_chans=in_chans, embed_dim=embed_dim)
-        # num_patches = self.patch_embed.num_patches
 
         self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
-        # self.pos_embed = nn.Parameter(torch.zeros(1, num_patches + 1, embed_dim))
-        # self.sine = positionalencoding2d(self.embed_dim, 14, 14)  # returned 1 x hw x self.embed_dim
-        self.pos_drop = nn.Dropout(p=drop_rate)
-        # self.embedding = PatchInvarientPosEncoding(self.embed_dim, 12, dim_feedforward=self.embed_dim * 4)
 
-        dpr = [x.item() for x in torch.linspace(0, drop_path_rate, depth)]
+        self.pos_drop = nn.Dropout(p=drop_rate)
+
+        dpr = [x.item() for x in torch.linspace(0, drop_path_rate, depth)]  # stochastic depth decay rule
         self.blocks = nn.ModuleList([
             Block(
                 dim=embed_dim, num_heads=num_heads, mlp_ratio=mlp_ratio, qkv_bias=qkv_bias, qk_scale=qk_scale,
@@ -387,6 +390,8 @@ class VisionTransformer(nn.Module):
             for i in range(depth)])
         self.norm = norm_layer(embed_dim)
 
+
+        # Classifier head
         self.head = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
         self.reference = nn.Parameter(torch.zeros(1, 1, self.embed_dim))
@@ -397,6 +402,7 @@ class VisionTransformer(nn.Module):
             nn.Linear(self.embed_dim, self.embed_dim),
             nn.Sigmoid()
         )
+
 
         trunc_normal_(self.cls_token, std=.02)
         self.apply(self._init_weights)
@@ -412,6 +418,7 @@ class VisionTransformer(nn.Module):
 
     @torch.jit.ignore
     def no_weight_decay(self):
+    
         return {'cls_token'}
 
     def get_classifier(self):
@@ -424,7 +431,7 @@ class VisionTransformer(nn.Module):
     def forward_features(self, x):
         B = x.shape[0]
         x = self.patch_embed(x)
-        cls_tokens = self.cls_token.expand(B, -1, -1) 
+        cls_tokens = self.cls_token.expand(B, -1, -1)  
         reference = self.reference.expand(B, -1, -1)
 
 
@@ -444,7 +451,6 @@ class VisionTransformer(nn.Module):
         x = self.head(x)
         return x
 
-
 class Net_D_shuffletruffle(nn.Module):
     def __init__(self, *, img_size=32, patch_size=16, num_classes=10, embed_dim=384, depth=8, num_heads=8, mlp_ratio=3):
         super(Net_D_shuffletruffle, self).__init__()
@@ -461,9 +467,8 @@ class Net_D_shuffletruffle(nn.Module):
     def forward(self, x):
         return self.VisionTransformer(x)
 
-# Define the model architecture for N-shuffletruffle
 class Net_N_shuffletruffle(nn.Module):
-    def __init__(self, *, img_size=32, patch_size=8, num_classes=10, embed_dim=384, depth=8, num_heads=8, mlp_ratio=3):
+    def __init__(self, *, img_size=32, patch_size=8, num_classes=10, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4):
         super(Net_N_shuffletruffle, self).__init__()
         self.VisionTransformer = VisionTransformer(
             img_size=img_size,
@@ -472,7 +477,9 @@ class Net_N_shuffletruffle(nn.Module):
             embed_dim=embed_dim,
             depth=depth,
             num_heads=num_heads,
-            mlp_ratio=mlp_ratio
+            mlp_ratio=mlp_ratio,
+            qkv_bias=True,
+            norm_layer=partial(nn.LayerNorm, eps=1e-6)
         )
 
     def forward(self, x):
@@ -507,13 +514,13 @@ def main(epochs = 100,
     random.seed(0)
     np.random.seed(0)
     torch.manual_seed(0)
-    
-    # Load and preprocess the dataset, feel free to add other transformations that don't shuffle the patches. 
+
+    # Load and preprocess the dataset, feel free to add other transformations that don't shuffle the patches.
     # (Note - augmentations are typically not performed on validation set)
     transform = transforms.Compose([
         transforms.ToTensor()])
 
-    
+
     # Initialize training, validation and test dataset
     trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
     trainset, valset = torch.utils.data.random_split(trainset, [40000, 10000], generator=torch.Generator().manual_seed(0))
@@ -524,12 +531,13 @@ def main(epochs = 100,
 
     transform = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize(mean=train_mean, std=train_std)
+        # transforms.Normalize(mean=train_mean, std=train_std)
     ])
 
+
     # Apply transformation to trainset and valset
-    trainset.dataset.transform = transform
-    valset.dataset.transform = transform
+    # trainset.dataset.transform = transform
+    # valset.dataset.transform = transform
 
 
     testset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
@@ -542,19 +550,19 @@ def main(epochs = 100,
     # Initialize the model, the loss function and optimizer
     if model_class == 'Plain-Old-CIFAR10':
         net = Net().to(device)
-    elif model_class == 'D-shuffletruffle': 
+    elif model_class == 'D-shuffletruffle':
         net = Net_D_shuffletruffle().to(device)
     elif model_class == 'N-shuffletruffle':
         net = Net_N_shuffletruffle().to(device)
-    
+
     print(net) # print model architecture
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(net.parameters(), lr = learning_rate, weight_decay= l2_regularization)
 
     train_accuracy_list = []
     val_accuracy_list = []
-    train_loss_list = [] 
-    val_loss_list = []   
+    train_loss_list = []
+    val_loss_list = []
 
     # Train the model
     try:

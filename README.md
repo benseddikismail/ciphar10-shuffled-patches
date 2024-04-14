@@ -436,9 +436,35 @@ The table below summarizes the average performance of the three most notable mod
 | Self-Attention with Convolution Layers    | 70.5          | 0.900     | 40.8 | 2.084 | 27.66 | 3.145 |
 | Plain Ciphar10 Model with Convolution Layers   | 82.50         | 0.539     | 17.67 | 3.165 | 16.66 | 3.038 |
 
-### Challenges and Future Work
-One of the most significant challenges encountered throughout this project was compute resources. Training the models required a substantial amount of time and computational power, often posing limitations on the depth of experimentation. Due to these constraints, most models were only trained for 10 epochs, with hyperparameters optimized for speed rather than accuracy. This suggests that the models likely have untapped potential in accurately classifying CIFAR-10 images, given more extensive training.
+## N-shuffletruffle Model
+
+The N-shuffletruffle model, based on the PEViT architecture, represents a remarkable advancement in image classification, particularly in handling images with shuffled patches. While the original PEViT model achieves nearly identical performance on both regular CIFAR10 images and images with shuffled patches, the N-shuffletruffle model demonstrates its versatility by maintaining high accuracy even with variations in patch sizes.
+For classifying CIFAR10 images with 8x8 shuffled patches, the N-shuffletruffle model employs specific hyperparameter adjustments to adapt to the new input structure. Firstly, the patch size is reduced to 8 instead of 16, aligning with the smaller patch dimensions. This change allows the model to capture finer-grained details within each patch, enhancing its sensitivity to smaller patch variations. Additionally, enabling qkv_bias and adjusting the norm_layer settings ensure proper handling of the increased model complexity introduced by the smaller patches.  
+
+Interestingly, despite these adjustments primarily tailored for 8x8 shuffled patches, the N-shuffletruffle model still yields the same performance of 49.22% on images with 16x16 shuffled patches. This outcome highlights the robustness and generalization capability of the model, demonstrating that the hyperparameter changes effectively capture the essential features necessary for accurate classification across different patch sizes.
+The success of the N-shuffletruffle model can be attributed to its unique architecture inspired by the PEViT model. By incorporating reference-based positional encoding and permutation-invariant design principles, the model ensures that the order of input patches remains invariant to shuffling, thereby enabling effective learning from shuffled images while maintaining performance parity with regular images. This groundbreaking approach not only advances image recognition but also opens avenues for encryption strategies, making the N-shuffletruffle model a pioneering solution in the field of image classification and security.  
+
+
+<figure>
+  <figcaption><strong>N-shuffletruffle: Training and Validation Accuracies vs Epochs</strong></figcaption>
+  <img
+  src=""
+  alt="N-shuffletruffle: Train/Validation Accuracy vs Epochs">
+</figure>
+
+<figure>
+  <figcaption><strong>N-shuffletruffle: Training and Validation Accuracies vs Epochs</strong></figcaption>
+  <img
+  src=""
+  alt="N-shuffletruffle: Train/Validation Loss vs Epochs">
+</figure>
+
+## Analysis
+
+
+
+
+## Challenges and Future Work
+One of the most significant challenges encountered throughout this assignment was compute resources. Training the models required a substantial amount of time and computational power, often posing limitations on the depth of experimentation. Due to these constraints, most models were only trained for 10 epochs, with hyperparameters optimized for speed rather than accuracy. This suggests that the models likely have untapped potential in accurately classifying CIFAR-10 images, given more extensive training.
 Notably, PEViT stands out as a model with the potential for significantly higher accuracy, potentially surpassing the 55% mark achieved in limited training runs. However, due to the compute limitations, it was not possible to fully explore its capabilities. Since Vision Transformer (ViT) models typically benefit from extensive training data and epochs, future work could focus on training PEViT for a more extended period, possibly up to 200 epochs.
 Moreover, future investigations could involve optimizing hyperparameters similar to those used in the paper for the Data-Efficient Image Transformer (DeiT). Parameters such as a smaller batch size of 32 and a lower learning rate of 0.00005 may be crucial for achieving optimal performance in training PEViT on CIFAR-10 images with shuffled patches. By addressing these challenges and refining the training process, we can further explore the capabilities and invariance of PEViT on shuffled images, potentially uncovering its true potential in image classification tasks.
-
-## D-shuffletruffle Model
