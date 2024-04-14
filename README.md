@@ -421,14 +421,14 @@ PEViT's architecture can be summarized as follows:
 <figure>
   <figcaption><strong>PEViT: Train/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit_acc.png"
   alt="PEViT: Train/Validation Accuracy vs Epochs">
 </figure>
 
 <figure>
   <figcaption><strong>PEViT: Train/Validation Loss vs Epochs</strong></figcaption>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit_loss.png"
   alt="PEViT: Train/Validation Loss vs Epochs">
 </figure>
 
@@ -454,16 +454,16 @@ The success of the N-shuffletruffle model can be attributed to its unique archit
 
 
 <figure>
-  <figcaption><strong>N-shuffletruffle: Training and Validation Accuracies vs Epochs</strong></figcaption>
+  <figcaption><strong>N-shuffletruffle: Train/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/n_shuffle_acc.png"
   alt="N-shuffletruffle: Train/Validation Accuracy vs Epochs">
 </figure>
 
 <figure>
-  <figcaption><strong>N-shuffletruffle: Training and Validation Accuracies vs Epochs</strong></figcaption>
+  <figcaption><strong>N-shuffletruffle: Train/Validation Loss vs Epochs</strong></figcaption>
   <img
-  src=""
+  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/n_shuffle_loss.png"
   alt="N-shuffletruffle: Train/Validation Loss vs Epochs">
 </figure>
 
