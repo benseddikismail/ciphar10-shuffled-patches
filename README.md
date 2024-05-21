@@ -11,14 +11,14 @@ Despite these enhancements, our initial model achieved an accuracy of 68.93%. To
 <figure>
    <figcaption><strong>Initial CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/init-ciphar10-loss.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/init-ciphar10-loss.png"
   alt="Initial CIFAR10 Model: Training/Validation Loss vs Epochs">
 </figure>
  
 <figure>
    <figcaption><strong>Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/init-ciphar10-accuracy.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/init-ciphar10-accuracy.png"
   alt="Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs">
 </figure>
 
@@ -71,14 +71,14 @@ This model was trained with a batch size of 64, a learning rate of 0.001, and L2
 <figure>
    <figcaption><strong>Best CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/ciphar10-loss.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/ciphar10-loss.png"
   alt="Best CIFAR10 Model: Training/Validation Loss vs Epochs">
 </figure>
 
 <figure>
    <figcaption><strong>Best CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/ciphar10-accuracy.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/ciphar10-accuracy.png"
   alt="Best CIFAR10 Model: Training/Validation Accuracy vs Epochs">
 </figure>
 
@@ -109,7 +109,7 @@ To address this performance gap, alternative architectures or training strategie
 <figure>
    <figcaption><strong>Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/plain.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/plain.png"
   alt="Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs">
 </figure>
 
@@ -123,7 +123,7 @@ However, while this innovative approach showed promise on regular CIFAR10 images
 <figure>
   <figcaption><strong>Self-Attention: Training and Validation Accuracies vs Epochs</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/self-attention.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/self-attention.png"
   alt="Self-Attention: Training and Validation Accuracies vs Epochs">
 </figure>
 
@@ -174,21 +174,21 @@ PEViT's architecture can be summarized as follows:
 <figure>
   <figcaption><strong>PEViT Architecture</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pevit.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/pevit.png"
   alt="PEViT Architecture">
 </figure>
 
 <figure>
   <figcaption><strong>PEViT: Train/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pevit_acc.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/pevit_acc.png"
   alt="PEViT: Train/Validation Accuracy vs Epochs">
 </figure>
 
 <figure>
   <figcaption><strong>PEViT: Train/Validation Loss vs Epochs</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pevit_loss.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/pevit_loss.png"
   alt="PEViT: Train/Validation Loss vs Epochs">
 </figure>
 
@@ -216,14 +216,14 @@ The success of the N-shuffletruffle model can be attributed to its unique archit
 <figure>
   <figcaption><strong>N-shuffletruffle: Train/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/n_shuffle_acc.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/n_shuffle_acc.png"
   alt="N-shuffletruffle: Train/Validation Accuracy vs Epochs">
 </figure>
 
 <figure>
   <figcaption><strong>N-shuffletruffle: Train/Validation Loss vs Epochs</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/n_shuffle_loss.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/n_shuffle_loss.png"
   alt="N-shuffletruffle: Train/Validation Loss vs Epochs">
 </figure>
 
@@ -245,7 +245,7 @@ Below is the Principal Component Analysis (PCA) conducted on the pre-final layer
 <figure>
   <figcaption><strong>CIFAR10 Model: PCA Plot</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pca_ciphar10.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/pca_ciphar10.png"
   alt="CIFAR10 Model: PCA Plot">
 </figure>
 
@@ -256,7 +256,7 @@ The data points appear quite scattered in the plot, which aligns with the model'
 <figure>
   <figcaption><strong>D-shuffletruffle: PCA Plot</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pca_d_shuffle.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/pca_d_shuffle.png"
   alt="D-shuffletruffle: PCA Plot">
 </figure>
 
@@ -270,7 +270,7 @@ The model's similar accuracy on images with 16x16 shuffled patches contributes t
 <figure>
   <figcaption><strong>N-shuffletruffle: PCA Plot</strong></figcaption>
   <img
-  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pca_n_shuffle.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/blob/main/img/pca_n_shuffle.png"
   alt="N-shuffletruffle: PCA Plot">
 </figure>
 
@@ -502,4 +502,3 @@ CNN is a model which can be used for extracting the local features in the images
 And ViT model is pretty good at performing image classification.
 The hybrid model (mix of CNN and ViT) is something which we thought would be pretty good for carrying out with the task.
 Challenge : Not able to resolve compatibility issues in the architecture.
-
