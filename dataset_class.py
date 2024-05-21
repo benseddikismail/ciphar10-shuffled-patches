@@ -1,5 +1,3 @@
-# (based on skeleton code for CSCI-B 657, Feb 2024)
-
 from torch.utils.data import Dataset, DataLoader
 import torch
 import torchvision.transforms as transforms
