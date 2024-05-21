@@ -1,4 +1,4 @@
-# B657 Assignment 2: Image transformations and deep learning
+# CIFAR-10 Image Classification
 
 ## CIFAR10 Model
 
@@ -11,14 +11,14 @@ Despite these enhancements, our initial model achieved an accuracy of 68.93%. To
 <figure>
    <figcaption><strong>Initial CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/init-ciphar10-loss.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/init-ciphar10-loss.png"
   alt="Initial CIFAR10 Model: Training/Validation Loss vs Epochs">
 </figure>
  
 <figure>
    <figcaption><strong>Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/init-ciphar10-accuracy.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/init-ciphar10-accuracy.png"
   alt="Initial CIFAR10 Model: Training/Validation Accuracy vs Epochs">
 </figure>
 
@@ -71,14 +71,14 @@ This model was trained with a batch size of 64, a learning rate of 0.001, and L2
 <figure>
    <figcaption><strong>Best CIFAR10 Model: Training/Validation Loss vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/ciphar10-loss.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/ciphar10-loss.png"
   alt="Best CIFAR10 Model: Training/Validation Loss vs Epochs">
 </figure>
 
 <figure>
    <figcaption><strong>Best CIFAR10 Model: Training/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/ciphar10-accuracy.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/ciphar10-accuracy.png"
   alt="Best CIFAR10 Model: Training/Validation Accuracy vs Epochs">
 </figure>
 
@@ -109,7 +109,7 @@ To address this performance gap, alternative architectures or training strategie
 <figure>
    <figcaption><strong>Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/plain.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/plain.png"
   alt="Plain CIFAR10 Model: Training and Validation Accuracies vs Epochs">
 </figure>
 
@@ -123,7 +123,7 @@ However, while this innovative approach showed promise on regular CIFAR10 images
 <figure>
   <figcaption><strong>Self-Attention: Training and Validation Accuracies vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/self-attention.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/self-attention.png"
   alt="Self-Attention: Training and Validation Accuracies vs Epochs">
 </figure>
 
@@ -174,21 +174,21 @@ PEViT's architecture can be summarized as follows:
 <figure>
   <figcaption><strong>PEViT Architecture</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pevit.png"
   alt="PEViT Architecture">
 </figure>
 
 <figure>
   <figcaption><strong>PEViT: Train/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit_acc.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pevit_acc.png"
   alt="PEViT: Train/Validation Accuracy vs Epochs">
 </figure>
 
 <figure>
   <figcaption><strong>PEViT: Train/Validation Loss vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pevit_loss.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pevit_loss.png"
   alt="PEViT: Train/Validation Loss vs Epochs">
 </figure>
 
@@ -216,14 +216,14 @@ The success of the N-shuffletruffle model can be attributed to its unique archit
 <figure>
   <figcaption><strong>N-shuffletruffle: Train/Validation Accuracy vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/n_shuffle_acc.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/n_shuffle_acc.png"
   alt="N-shuffletruffle: Train/Validation Accuracy vs Epochs">
 </figure>
 
 <figure>
   <figcaption><strong>N-shuffletruffle: Train/Validation Loss vs Epochs</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/n_shuffle_loss.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/n_shuffle_loss.png"
   alt="N-shuffletruffle: Train/Validation Loss vs Epochs">
 </figure>
 
@@ -245,7 +245,7 @@ Below is the Principal Component Analysis (PCA) conducted on the pre-final layer
 <figure>
   <figcaption><strong>CIFAR10 Model: PCA Plot</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pca_ciphar10.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pca_ciphar10.png"
   alt="CIFAR10 Model: PCA Plot">
 </figure>
 
@@ -256,7 +256,7 @@ The data points appear quite scattered in the plot, which aligns with the model'
 <figure>
   <figcaption><strong>D-shuffletruffle: PCA Plot</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pca_d_shuffle.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pca_d_shuffle.png"
   alt="D-shuffletruffle: PCA Plot">
 </figure>
 
@@ -270,7 +270,7 @@ The model's similar accuracy on images with 16x16 shuffled patches contributes t
 <figure>
   <figcaption><strong>N-shuffletruffle: PCA Plot</strong></figcaption>
   <img
-  src="https://github.iu.edu/cs-b657-sp2024/avmandal-ysampath-isbens-a2/blob/main/img/pca_n_shuffle.png"
+  src="https://github.com/benseddikismail/ciphar10-shuffled-patches/tree/main/img/pca_n_shuffle.png"
   alt="N-shuffletruffle: PCA Plot">
 </figure>
 
@@ -289,7 +289,7 @@ One of the most significant challenges encountered throughout this assignment wa
 Notably, PEViT stands out as a model with the potential for significantly higher accuracy, potentially surpassing the 50% mark achieved in limited training runs. However, due to the compute limitations, it was not possible to fully explore its capabilities. Since Vision Transformer (ViT) models typically benefit from extensive training data and epochs, future work could focus on training PEViT for a more extended period, possibly up to 200 epochs.
 Moreover, future investigations could involve optimizing hyperparameters similar to those used in the paper for the Data-Efficient Image Transformer (DeiT). Parameters such as a smaller batch size of 32 and a lower learning rate of 0.00005 may be crucial for achieving optimal performance in training PEViT on CIFAR-10 images with shuffled patches. By addressing these challenges and refining the training process, we can further explore the capabilities and invariance of PEViT on shuffled images, potentially uncovering its true potential in image classification tasks.
 
-## Experiments Appendix
+## Appendix
 The following section delineates the exhaustive experimentation and methodologies undertaken to attain our results.
 
 <!-- #### Normalization
@@ -307,16 +307,6 @@ A learning rate scheduler is used to adjust the learning rate during training dy
 
 We wrote a script to set up a dataset for our image classification task using CIFAR-10. We randomly selected 25 images from the CIFAR-10 test dataset. These images will be the core of our dataset.Then, we decided to add some variety to our dataset using data augmentation. We created shuffled versions of each of those 25 images. We divided each image into patches of two different sizes, 16x16 and 8x8. After that, we shuffled these patches randomly and put them back together to form a new image. 
 Finally,We combined them with the original images to make our final dataset. This mix of original and shuffled images adds more diversity to our dataset..
-
-
-#### Transform and Plots
-
-![WhatsApp Image 2024-04-12 at 23 36 43](https://media.github.iu.edu/user/24623/files/3d5f35be-17f4-4846-b531-5fcc0434819a)
-
-Data points within each class appear to cluster together to some extent, indicating similarity among samples within the same class.
-There might be a few outliers present in the dataset, visible as data points that are distant from the main clusters.
-
-Higher variance explained by the first few components suggests that they capture most of the variability in the data
 
 #### Insights
 
