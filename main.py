@@ -1,5 +1,3 @@
-# Authors:
-# (based on skeleton code for CSCI-B 657, Feb 2024)
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
