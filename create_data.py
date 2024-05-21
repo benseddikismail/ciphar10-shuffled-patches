@@ -1,5 +1,3 @@
-# This file is only for reference and need not be run or modified.
-
 import numpy as np
 import torchvision
 from einops import rearrange
